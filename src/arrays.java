@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class arrays {
     static void main() {
 //        int[] arr={3,6,2,9,9,8,14,14};
@@ -18,11 +21,26 @@ public class arrays {
 //            System.out.print(arr[i] + " ");
 //        }
 
-        int[] arr = {1,0,2,3,0,4,0,1};
-        move_zeros(arr);
-        for(int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i] + " ");
-        }
+//        int[] arr = {1,0,2,3,0,4,0,1};
+//        move_zeros(arr);
+//        for(int i = 0; i < arr.length; i++) {
+//            System.out.print(arr[i] + " ");
+//        }
+
+//        int arr1[]={1,2,2,3,4};
+//        int arr2[]={2,3,5};
+//        List<Integer> ans = FindUnion(arr1,arr2,arr1.length,arr2.length);
+//        System.out.println(ans);
+//        int[] arr={1,2,3,5,6};
+//        int x= missing_no(arr);
+//        System.out.println(x);
+
+        int arr1[] = {1,2,2,3,4};
+        int arr2[] = {2,3,5};
+
+        List<Integer> ans = FindUnion(arr1, arr2, arr1.length, arr2.length);
+
+        System.out.println(ans);
 
     }
 
@@ -105,6 +123,48 @@ public class arrays {
                 j++;
             }
         }
+    }
+
+    static List<Integer> FindUnion(int[] arr1, int[] arr2, int n, int m) {
+        List<Integer> union = new ArrayList<>();
+        int i = 0;
+        int j = 0;
+        while (i < n && j < m) {
+            if (arr1[i] <= arr2[j]) {
+                if (union.isEmpty() || union.get(union.size() - 1) != arr1[i]) {
+                    union.add(arr1[i]);
+                }
+                i++;
+            } else {
+                if (union.isEmpty() || union.get(union.size() - 1) != arr2[j]) {
+                    union.add(arr2[j]);
+                }
+                j++;
+            }
+        }
+        while (i < n) {
+
+            if (union.isEmpty() || union.get(union.size() - 1) != arr1[i]) {
+                union.add(arr1[i]);
+            }
+            i++;
+        }
+        while (j < m) {
+            if (union.isEmpty() || union.get(union.size() - 1) != arr2[j]) {
+                union.add(arr2[j]);
+            }
+            j++;
+        }
+        return union;
+    }
+    static int missing_no(int[] arr){
+        int n=arr.length+1;
+        long sum=0;
+        for(int i=0;i<n-1;i++){
+            sum+=arr[i];
+        }
+        long expSum= n*(n+1)/2;
+        return(int)(expSum-sum);
     }
 
 }
